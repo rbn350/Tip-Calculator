@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tip Calculator</title>
+</head>
+<body>
+    <script>
+        // Validate service quality
+        function isValidServiceQuality(quality) {
+            return ['great', 'ok', 'poor'].includes(quality.toLowerCase());
+        }
+
+        // Validate service amount
+        function isValidServiceAmount(amount) {
+            return parseFloat(amount) >= 5.00 && parseFloat(amount) <= 500.00;
+        }
+
+        // Calculate the tip amount
+        function calculateTip(serviceAmount, serviceQuality) {
+            let tipPercentage;
+
+            switch (serviceQuality.toLowerCase()) {
+                case 'great':
+                    tipPercentage = 0.20;
+                    break;
+                case 'ok':
+                    tipPercentage = 0.15;
+                    break;
+                case 'poor':
+                    tipPercentage = 0.10;
+                    break;
+                default:
+                    // Invalid service quality
+                    return -1;
+            }
+
+            const tipAmount = serviceAmount * tipPercentage;
+            return tipAmount;
+        }
+
+        // Ask user to enter the total amount
+        const serviceAmountInput = prompt("Enter the total amount:");
+        // Invalid input
+        if (!isValidServiceAmount(serviceAmountInput)) {
+            alert("Invalid. Please enter an amount between $5.00 and $500.00.");
+        } else {
+            // Ask user to rate the service
+            const serviceQualityInput = prompt("Rate the service: great, ok, or poor.");
+            // Invalid input
+            if (!isValidServiceQuality(serviceQualityInput)) {
+                alert("Invalid. Please enter great, ok, or poor.");
+            } else {
+                // Calculate the tip
+                const tipAmount = calculateTip(parseFloat(serviceAmountInput), serviceQualityInput);
+
+                if (tipAmount === -1) {
+                    alert("Invalid. Please enter great, ok, or poor.");
+                } else {
+                    // Display the final result
+                    alert(`Service Amount: $${parseFloat(serviceAmountInput).toFixed(2)}\nRecommended Tip: $${tipAmount.toFixed(2)}\nService Quality: ${serviceQualityInput}`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
